@@ -1,4 +1,4 @@
-# QQQ Signal
+# NDX Signal
 
 A bookmarkable daily TQQQ / TLT signal and a plain-language explanation of the published three-gate rule and taxable deferral exception.
 

@@ -28,7 +28,7 @@ function render() {
   for (const [text, passes] of [
     [`Vol ${percent(s.volatility)} ${volPass ? '<' : '≥'} 35%`, volPass],
     [s.shock === null ? 'Shock unavailable' : `Shock ${s.shock.toFixed(2)} ${shockPass ? '<' : '≥'} 1.10`, shockPass],
-    [`QQQ drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
+    [`NDX drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
   ]) {
     const pill = document.createElement('span');
     pill.className = `pill ${passes ? '' : 'fail'}`;
