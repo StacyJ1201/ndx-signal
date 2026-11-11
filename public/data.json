@@ -3,7 +3,7 @@
   "source": "Yahoo Finance",
   "symbol": "^NDX",
   "source_label": "Nasdaq-100 index (NDX)",
-  "checked_at": "2026-11-11T02:39:55.004137+00:00",
+  "checked_at": "2026-11-11T02:41:23.241856+00:00",
   "expected_close": "2026-11-10",
   "fresh": true,
   "signal": {
