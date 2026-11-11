@@ -3,7 +3,7 @@
   "source": "Yahoo Finance",
   "symbol": "^NDX",
   "source_label": "Nasdaq-100 index (NDX)",
-  "checked_at": "2026-11-11T02:41:23.241856+00:00",
+  "checked_at": "2026-11-11T02:51:17.741612+00:00",
   "expected_close": "2026-11-10",
   "fresh": true,
   "signal": {
@@ -19,7 +19,46 @@
     "changed_on": "2026-11-02",
     "sessions_in_state": 7,
     "pending": false,
-    "execution_close": "2026-11-03T21:00:00+00:00"
+    "execution_close": "2026-11-03T21:00:00+00:00",
+    "next_execution_close": "2026-11-11T21:00:00+00:00"
+  },
+  "tqqq": {
+    "date": "2026-11-10",
+    "close": 56.560001373291016,
+    "splits": [
+      {
+        "date": "2011-02-25",
+        "ratio": 2.0
+      },
+      {
+        "date": "2012-05-11",
+        "ratio": 2.0
+      },
+      {
+        "date": "2014-01-24",
+        "ratio": 2.0
+      },
+      {
+        "date": "2017-01-12",
+        "ratio": 2.0
+      },
+      {
+        "date": "2018-05-24",
+        "ratio": 3.0
+      },
+      {
+        "date": "2021-01-21",
+        "ratio": 2.0
+      },
+      {
+        "date": "2022-01-13",
+        "ratio": 2.0
+      },
+      {
+        "date": "2025-11-20",
+        "ratio": 2.0
+      }
+    ]
   },
   "calendar": [
     {
@@ -1167,7 +1206,8 @@
       "changed_on": "2026-11-02",
       "sessions_in_state": 7,
       "pending": false,
-      "execution_close": "2026-11-03T21:00:00+00:00"
+      "execution_close": "2026-11-03T21:00:00+00:00",
+      "next_execution_close": "2026-11-11T21:00:00+00:00"
     }
   ]
 }

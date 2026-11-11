@@ -27,7 +27,7 @@ function render() {
   $('gate-pills').replaceChildren();
   for (const [text, passes] of [
     [`Vol ${percent(s.volatility)} ${volPass ? '<' : '≥'} 35%`, volPass],
-    [`Shock ${s.shock === null ? '—' : s.shock.toFixed(2)} ${shockPass ? '<' : '≥'} 1.10`, shockPass],
+    [s.shock === null ? 'Shock unavailable' : `Shock ${s.shock.toFixed(2)} ${shockPass ? '<' : '≥'} 1.10`, shockPass],
     [`NDX drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
   ]) {
     const pill = document.createElement('span');
