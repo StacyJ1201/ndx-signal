@@ -4,7 +4,7 @@
   "symbol": "^NDX",
   "execution": "next_session_open",
   "source_label": "Nasdaq-100 index (NDX)",
-  "checked_at": "2026-11-11T04:07:53.221247+00:00",
+  "checked_at": "2026-11-11T04:08:20.624768+00:00",
   "expected_close": "2026-11-10",
   "fresh": true,
   "signal": {
