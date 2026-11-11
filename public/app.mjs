@@ -28,7 +28,7 @@ function render() {
   for (const [text, passes] of [
     [`Vol ${percent(s.volatility)} ${volPass ? '<' : '≥'} 35%`, volPass],
     [s.shock === null ? 'Shock unavailable' : `Shock ${s.shock.toFixed(2)} ${shockPass ? '<' : '≥'} 1.10`, shockPass],
-    [`NDX drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
+    [`QQQ drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
   ]) {
     const pill = document.createElement('span');
     pill.className = `pill ${passes ? '' : 'fail'}`;
@@ -44,8 +44,8 @@ function render() {
   else explanation += blocked.length ? ` Currently blocked by ${blocked.join(' and ')}.` : ' All three gates pass together.';
   explanation += ` This allocation was confirmed on ${fullDate(s.changed_on)}.`;
   $('signal-explanation').textContent = explanation;
-  const execution = new Date(s.execution_close);
-  $('signal-timing').textContent = `That change's execution close was ${execution.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short' })}. New confirmed changes use the following trading session's close.`;
+  const execution = new Date(s.execution_open);
+  $('signal-timing').textContent = `That change's execution open was ${execution.toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York', timeZoneName: 'short' })}. New confirmed changes use the following trading session's open.`;
   $('data-warning').hidden = status.fresh;
   if (!status.fresh) {
     $('data-warning').textContent = status.expired ? 'The published calendar has expired. A data refresh is required before using this signal.' : `Latest available close is ${fullDate(s.date)}. The completed ${status.expected ? fullDate(status.expected) : 'latest'} session has not been published yet. Refresh later before using the signal.`;

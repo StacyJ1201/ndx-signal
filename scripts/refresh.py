@@ -1,4 +1,4 @@
-"""Publish the confirmed NDX gate and exchange-calendar freshness information."""
+"""Publish the confirmed QQQ gate and exchange-calendar freshness information."""
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import stdev
@@ -27,10 +27,10 @@ def latest_completed(calendar, now):
     return settled.index[-1].date().isoformat()
 
 
-def read_yahoo(now, completed, symbol='^NDX', events=False):
+def read_yahoo(now, completed, symbol='QQQ', events=False):
     end = int((now + timedelta(days=1)).timestamp())
     url = f'https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol, safe="")}?period1=0&period2={end}&interval=1d&events=splits'
-    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 NDX-Signal/1.0'})
+    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 QQQ-Signal/2.0'})
     for attempt in range(3):
         try:
             with urllib.request.urlopen(request, timeout=45) as response:
@@ -45,10 +45,10 @@ def read_yahoo(now, completed, symbol='^NDX', events=False):
         day = datetime.fromtimestamp(stamp, timezone.utc).astimezone(NY).date().isoformat()
         if day <= completed and value is not None:
             if not math.isfinite(value) or value <= 0:
-                raise ValueError(f'Invalid NDX close on {day}')
+                raise ValueError(f'Invalid QQQ close on {day}')
             rows.append((day, float(value)))
     if len(rows) < 252 or len({day for day, _ in rows}) != len(rows):
-        raise ValueError('NDX history is incomplete or contains duplicate sessions')
+        raise ValueError('QQQ history is incomplete or contains duplicate sessions')
     if events:
         splits = [dict(date=datetime.fromtimestamp(item['date'], timezone.utc).astimezone(NY).date().isoformat(), ratio=item['numerator'] / item['denominator']) for item in result.get('events', {}).get('splits', {}).values()]
         return rows, sorted(splits, key=lambda item: item['date'])
@@ -105,14 +105,14 @@ def publish(now=None):
     observed = rows[-1][0]
     expected_rows = calendar.sessions_in_range(rows[-300][0], observed)
     if [session.date().isoformat() for session in expected_rows] != [day for day, _ in rows[-300:]]:
-        raise ValueError('A recent NDX session is missing. Retaining the last published signal.')
+        raise ValueError('A recent QQQ session is missing. Retaining the last published signal.')
     tqqq, splits = read_yahoo(now, completed, 'TQQQ', events=True)
     if tqqq[-1][0] != observed:
-        raise ValueError('TQQQ and NDX closes are not aligned')
+        raise ValueError('TQQQ and QQQ closes are not aligned')
     signal, history = compute(rows)
     next_session = calendar.next_session(signal['changed_on'])
-    signal['execution_close'] = calendar.session_close(next_session).isoformat()
-    signal['next_execution_close'] = calendar.session_close(calendar.next_session(observed)).isoformat()
+    signal['execution_open'] = calendar.session_open(next_session).isoformat()
+    signal['next_execution_open'] = calendar.session_open(calendar.next_session(observed)).isoformat()
     destination = ROOT / 'public/data.json'
     if destination.exists():
         prior = json.loads(destination.read_text())
@@ -120,11 +120,11 @@ def publish(now=None):
             raise ValueError('Provider history regressed. Retaining the newer published signal.')
     schedule = calendar.schedule.loc[(now - timedelta(days=14)).date().isoformat():
                                     (now + timedelta(days=370)).date().isoformat()]
-    payload = dict(schema=1, source='Yahoo Finance', symbol='^NDX',
-                   source_label='Nasdaq-100 index (NDX)', checked_at=now.isoformat(),
+    payload = dict(schema=2, source='Yahoo Finance', symbol='QQQ', execution='next_session_open',
+                   source_label='Invesco QQQ (QQQ)', checked_at=now.isoformat(),
                    expected_close=completed, fresh=observed == completed,
                    signal=signal, tqqq=dict(date=observed, close=tqqq[-1][1], splits=splits),
-                   calendar=[dict(date=day.date().isoformat(), close=row['close'].isoformat())
+                   calendar=[dict(date=day.date().isoformat(), open=row['open'].isoformat(), close=row['close'].isoformat())
                              for day, row in schedule.iterrows()],
                    recent=history[-8:])
     temporary = destination.with_suffix('.tmp')
@@ -132,7 +132,7 @@ def publish(now=None):
     os.replace(temporary, destination)
     shock_text = f'{signal["shock"]:.3f}' if signal['shock'] is not None else 'undefined'
     print(f'{observed}: {signal["signal"]}; vol {signal["volatility"]:.2%}; '
-          f'shock {shock_text}; NDX drawdown {signal["drawdown"]:.2%}', flush=True)
+          f'shock {shock_text}; QQQ drawdown {signal["drawdown"]:.2%}', flush=True)
     if observed != completed:
         print(f'::warning::Provider is behind the latest completed session, {completed}. The page will show a data warning.')
 

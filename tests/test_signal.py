@@ -46,6 +46,7 @@ class SignalTests(unittest.TestCase):
         now = datetime(2026, 11, 27, 18, 14, tzinfo=timezone.utc)
         calendar = exchange_calendar(now)
         self.assertEqual(latest_completed(calendar, now), '2026-11-25')
+        self.assertEqual(calendar.session_open(calendar.next_session('2026-11-25')).isoformat(), '2026-11-27T14:30:00+00:00')
         self.assertEqual(latest_completed(calendar, now.replace(minute=16)), '2026-11-27')
 
 
