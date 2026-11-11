@@ -1,8 +1,8 @@
-# NDX Signal
+# QQQ Signal
 
 A bookmarkable daily TQQQ / TLT signal and a plain-language explanation of the published three-gate rule and taxable deferral exception.
 
-The signal uses Nasdaq-100 daily closes, sample standard deviation, 20/250-session windows, a 35% annualized volatility limit, a 1.10 shock limit, and the 20%/10% drawdown state. A combined verdict needs two consecutive sessions. Allocation changes use the following session's open.
+The signal uses QQQ ETF daily closes, sample standard deviation, 20/250-session windows, a 35% annualized volatility limit, a 1.10 shock limit, and the 20%/10% drawdown state. A combined verdict needs two consecutive sessions. Allocation changes use the following session's open.
 
 The deferral explanation retains all three AND conditions from the source. The page does not read brokerage holdings. It publishes the base market signal and explains how an existing TQQQ purchase may qualify for deferral.
 
@@ -30,3 +30,5 @@ python -m http.server --directory public 8765
 - [Exchange calendars](https://github.com/gerrymanoim/exchange_calendars)
 
 Market data and scheduled jobs can be delayed. Use the date and freshness status displayed on the page. Historical loss figures are attributed to the linked paper and its T-bill assumptions.
+
+The active QQQ feed is `public/qqq-data.json`. The legacy `data.json` is a frozen NDX snapshot retained for older page versions; current pages do not use it.

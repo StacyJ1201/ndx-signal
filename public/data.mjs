@@ -1,6 +1,6 @@
 export function validateData(data) {
   const s = data?.signal;
-  if (data?.schema !== 3 || data.symbol !== '^NDX' || data.execution !== 'next_session_open' || !s || !['TQQQ', 'TLT'].includes(s.signal) ||
+  if (data?.schema !== 4 || data.symbol !== 'QQQ' || data.execution !== 'next_session_open' || !s || !['TQQQ', 'TLT'].includes(s.signal) ||
       !/^\d{4}-\d{2}-\d{2}$/.test(s.date) ||
       !Number.isFinite(s.volatility) || !Number.isFinite(s.drawdown) ||
       (s.shock !== null && !Number.isFinite(s.shock)) ||

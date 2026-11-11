@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#0d1511">
   <meta name="description" content="A daily QQQ-based TQQQ / TLT signal, the three gates, and the taxable deferral rule explained in plain language.">
-  <title>NDX Signal · TQQQ / TLT</title>
+  <title>QQQ Signal · TQQQ / TLT</title>
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./app.mjs"></script>
@@ -13,33 +13,33 @@
 <body>
   <main>
     <header class="page-header">
-      <a class="wordmark" href="./">NDX Signal</a>
+      <a class="wordmark" href="./">QQQ Signal</a>
       <nav aria-label="Page sections"><a href="#rules">The rules</a><a href="#deferral">Taxable accounts</a></nav>
     </header>
     <section class="introduction" aria-labelledby="page-title">
       <h1 id="page-title">A daily guide to TQQQ &amp; TLT.</h1>
       <p>Three checks on the QQQ decide the base allocation. In a taxable account, one additional condition can postpone a TQQQ sale. Check the confirmed close, then follow the same rule.</p>
     </section>
-    <div class="metrics" aria-label="Latest NDX readings">
+    <div class="metrics" aria-label="Latest QQQ readings">
       <div><span class="label">20-day volatility</span><strong id="vol-value">—</strong><span class="metric-note">Passes below 35%</span></div>
       <div><span class="label">Volatility shock</span><strong id="shock-value">—</strong><span class="metric-note">Passes below 1.10×</span></div>
-      <div><span class="label">NDX drawdown</span><strong id="drawdown-value">—</strong><span class="metric-note">From the 250-session high</span></div>
+      <div><span class="label">QQQ drawdown</span><strong id="drawdown-value">—</strong><span class="metric-note">From the 250-session high</span></div>
     </div>
     <section class="signal-section" aria-labelledby="signal-title">
       <div class="section-heading"><h2 id="signal-title">Today's signal</h2><button id="refresh" type="button">Refresh signal</button></div>
       <div id="data-warning" class="notice" role="status" hidden></div>
       <article id="signal-card" class="signal-card loading" aria-live="polite" aria-busy="true">
         <div class="signal-summary"><span id="close-date" class="label">Confirmed daily close</span><h3 id="signal-name">Loading the signal…</h3><span id="signal-scope" class="signal-scope">Base allocation</span></div>
-        <div class="signal-detail"><div id="gate-pills" class="gate-pills"></div><p id="signal-explanation">Checking the latest published NDX closing data.</p><p id="signal-timing" class="detail-note"></p></div>
+        <div class="signal-detail"><div id="gate-pills" class="gate-pills"></div><p id="signal-explanation">Checking the latest published QQQ closing data.</p><p id="signal-timing" class="detail-note"></p></div>
       </article>
       <p class="below-signal">The defensive holding here is <strong>TLT</strong>, a long-term Treasury ETF. Before selling an existing TQQQ purchase, check the <a href="#deferral">taxable deferral rule</a>.</p>
-      <p id="last-checked" class="source-note">Source · NDX daily closing prices via Yahoo Finance.</p>
+      <p id="last-checked" class="source-note">Source · QQQ daily closing prices via Yahoo Finance.</p>
       <noscript><p class="notice">Enable JavaScript to see the current signal. The rules below remain available.</p></noscript>
     </section>
     <section id="rules" class="rules-section" aria-labelledby="rules-title">
       <h2 id="rules-title">The three gates</h2>
       <p class="section-intro">All three checks must pass together to allow TQQQ. The combined verdict must hold for two consecutive closes before the base allocation changes.</p>
-      <div class="rule-row"><span class="rule-index">1</span><div><h3>Absolute volatility</h3><p>Measure how spread out NDX's last 20 daily returns were, then express it on an annual scale.</p></div><div class="threshold">Below 35%<span>20-day sample volatility × √252</span></div></div>
+      <div class="rule-row"><span class="rule-index">1</span><div><h3>Absolute volatility</h3><p>Measure how spread out QQQ's last 20 daily returns were, then express it on an annual scale.</p></div><div class="threshold">Below 35%<span>20-day sample volatility × √252</span></div></div>
       <div class="rule-row"><span class="rule-index">2</span><div><h3>Volatility shock</h3><p>Compare the last 20 sessions with the index's own 250-session volatility baseline.</p></div><div class="threshold">Below 1.10×<span>20-day volatility ÷ 250-day volatility</span></div></div>
       <div class="rule-row"><span class="rule-index">3</span><div><h3>Drawdown state</h3><p>Block TQQQ after QQQ falls more than 20% from its 250-session closing high. Reset after it recovers to within 10%. Between those levels, retain the prior state.</p></div><div class="threshold">−20% / −10%<span>Exit boundary / reset boundary</span></div></div>
       <div class="timing"><h3>When to act</h3><p>Check after the daily close. A confirmed allocation change is acted on at the <strong>following trading session's open</strong>. The first opposite verdict alone does not change the allocation.</p></div>
@@ -47,17 +47,17 @@
     <section id="deferral" class="deferral-section" aria-labelledby="deferral-title">
       <h2 id="deferral-title">The taxable-account exception</h2>
       <p class="section-intro">This check applies only when an exit is already due and you own TQQQ. Apply it to each purchase separately.</p>
-      <div class="deferral-rule"><span class="label">Postpone that purchase's sale only while</span><div class="and-rule"><span>Gain &gt; 0</span><b>AND</b><span>Days held ≤ 365</span><b>AND</b><span>NDX drawdown &gt; −20%</span></div></div>
+      <div class="deferral-rule"><span class="label">Postpone that purchase's sale only while</span><div class="and-rule"><span>Gain &gt; 0</span><b>AND</b><span>Days held ≤ 365</span><b>AND</b><span>QQQ drawdown &gt; −20%</span></div></div>
       <p><strong>All three must be true together.</strong> If any one is false, that purchase's sale is eligible to proceed with the exit. Monthly purchases can qualify differently, leaving a temporary mix of TQQQ and TLT.</p>
       <p class="muted">The market signal above is the shared base rule. Purchase dates, cost basis and actual holdings determine a personal deferral decision. The 365-day rule is the quoted strategy condition. Confirm long-term tax status with your broker, especially around a leap year.</p>
     </section>
     <section class="risk-section" aria-labelledby="risk-title">
       <h2 id="risk-title">What the drawdown means</h2>
-      <p>The −20% check measures <strong>NDX's decline</strong>. TQQQ targets three times the index's daily return, so an account can lose substantially more. TLT also moves in price and can fall while stocks fall.</p>
+      <p>The −20% check measures <strong>QQQ's decline</strong>. TQQQ targets three times the index's daily return, so an account can lose substantially more. TLT also moves in price and can fall while stocks fall.</p>
       <p>In the linked whitepaper's historical T-bill tests, the reported worst before-tax decline was approximately <strong>47% for the base rule</strong> and <strong>57% with deferral</strong>. The author used reconstructed TQQQ returns before 2010. These figures describe that historical test and its assumptions.</p>
       <a class="source-link" href="https://willperryyy.github.io/tqqq-gate/whitepaper.html" target="_blank" rel="noopener noreferrer">Read the original whitepaper</a>
     </section>
-    <footer><p>NDX provides the signal. TQQQ and TLT are the allocation choices.</p><p>This page refreshes remotely after U.S. trading hours. The date on the signal identifies the completed session used. Scheduled updates can be delayed, and a stale-data warning means an updated close is needed.</p><p><a href="https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq" target="_blank" rel="noopener noreferrer">About TQQQ</a><a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener noreferrer">About TLT</a><a id="source-code" href="https://github.com/StacyJ1201/ndx-signal" target="_blank" rel="noopener noreferrer">Source &amp; update history</a></p></footer>
+    <footer><p>QQQ provides the signal. TQQQ and TLT are the allocation choices.</p><p>This page refreshes remotely after U.S. trading hours. The date on the signal identifies the completed session used. Scheduled updates can be delayed, and a stale-data warning means an updated close is needed.</p><p><a href="https://www.proshares.com/our-etfs/leveraged-and-inverse/tqqq" target="_blank" rel="noopener noreferrer">About TQQQ</a><a href="https://www.ishares.com/us/products/239454/ishares-20-year-treasury-bond-etf" target="_blank" rel="noopener noreferrer">About TLT</a><a id="source-code" href="https://github.com/StacyJ1201/ndx-signal" target="_blank" rel="noopener noreferrer">Source &amp; update history</a></p></footer>
   </main>
 </body>
 </html>

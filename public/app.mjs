@@ -28,7 +28,7 @@ function render() {
   for (const [text, passes] of [
     [`Vol ${percent(s.volatility)} ${volPass ? '<' : '≥'} 35%`, volPass],
     [s.shock === null ? 'Shock unavailable' : `Shock ${s.shock.toFixed(2)} ${shockPass ? '<' : '≥'} 1.10`, shockPass],
-    [`NDX drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
+    [`QQQ drawdown ${percent(s.drawdown)}`, s.drawdown_pass],
   ]) {
     const pill = document.createElement('span');
     pill.className = `pill ${passes ? '' : 'fail'}`;
@@ -60,7 +60,7 @@ async function load() {
   $('refresh').disabled = true;
   $('refresh').textContent = 'Checking…';
   try {
-    const url = new URL('./data.json', import.meta.url);
+    const url = new URL('./qqq-data.json', import.meta.url);
     url.searchParams.set('checked', Date.now());
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) throw new Error('The published signal could not be loaded.');
