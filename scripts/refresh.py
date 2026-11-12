@@ -27,6 +27,18 @@ def latest_completed(calendar, now):
     return settled.index[-1].date().isoformat()
 
 
+def settled_meta_row(result, now, completed, calendar):
+    meta = result.get('meta') or {}
+    stamp, price = meta.get('regularMarketTime'), meta.get('regularMarketPrice')
+    if not isinstance(stamp, (int, float)) or not isinstance(price, (int, float)) or not math.isfinite(stamp) or not math.isfinite(price) or price <= 0:
+        return None
+    when = datetime.fromtimestamp(stamp, timezone.utc)
+    close = calendar.session_close(completed)
+    if when.astimezone(NY).date().isoformat() != completed or when < close or when > now or now < close + timedelta(minutes=15):
+        return None
+    return completed, float(price)
+
+
 def read_yahoo(now, completed, symbol='QQQ', events=False):
     end = int((now + timedelta(days=1)).timestamp())
     url = f'https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol, safe="")}?period1=0&period2={end}&interval=1d&events=splits'
@@ -40,13 +52,18 @@ def read_yahoo(now, completed, symbol='QQQ', events=False):
             if attempt == 2:
                 raise
             time.sleep(2 ** attempt)
+    recovered = settled_meta_row(result, now, completed, exchange_calendar(now))
     rows = []
     for stamp, value in zip(result['timestamp'], result['indicators']['quote'][0]['close']):
         day = datetime.fromtimestamp(stamp, timezone.utc).astimezone(NY).date().isoformat()
+        if value is None and recovered and day == completed:
+            value = recovered[1]
         if day <= completed and value is not None:
             if not math.isfinite(value) or value <= 0:
                 raise ValueError(f'Invalid QQQ close on {day}')
             rows.append((day, float(value)))
+    if recovered and rows and rows[-1][0] < completed:
+        rows.append(recovered)
     if len(rows) < 252 or len({day for day, _ in rows}) != len(rows):
         raise ValueError('QQQ history is incomplete or contains duplicate sessions')
     if events:
@@ -118,7 +135,7 @@ def publish(now=None):
         prior = json.loads(destination.read_text())
         if prior['signal']['date'] > observed:
             raise ValueError('Provider history regressed. Retaining the newer published signal.')
-    schedule = calendar.schedule.loc[(now - timedelta(days=14)).date().isoformat():
+    schedule = calendar.schedule.loc[(now - timedelta(days=450)).date().isoformat():
                                     (now + timedelta(days=370)).date().isoformat()]
     payload = dict(schema=4, source='Yahoo Finance', symbol='QQQ', execution='next_session_open',
                    source_label='Invesco QQQ ETF (QQQ)', checked_at=now.isoformat(),

@@ -5,10 +5,22 @@ import sys
 import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from refresh import compute, exchange_calendar, latest_completed
+from refresh import compute, exchange_calendar, latest_completed, settled_meta_row
 
 
 class SignalTests(unittest.TestCase):
+    def test_null_bar_recovery_requires_a_settled_regular_close(self):
+        now = datetime(2026, 11, 27, 18, 16, tzinfo=timezone.utc)
+        calendar = exchange_calendar(now)
+        close = calendar.session_close('2026-11-27')
+        result = {'meta': {'regularMarketTime': close.timestamp(), 'regularMarketPrice': 123.45}}
+        self.assertEqual(settled_meta_row(result, now, '2026-11-27', calendar), ('2026-11-27', 123.45))
+        self.assertIsNone(settled_meta_row(result, now.replace(minute=14), '2026-11-27', calendar))
+        result['meta']['regularMarketTime'] -= 60
+        self.assertIsNone(settled_meta_row(result, now, '2026-11-27', calendar))
+        result['meta']['regularMarketPrice'] = float('nan')
+        self.assertIsNone(settled_meta_row(result, now, '2026-11-27', calendar))
+
     def rows(self, closes):
         return [(f'{2000 + i // 300:04d}-{1 + (i % 300) // 25:02d}-{1 + i % 25:02d}', value)
                 for i, value in enumerate(closes)]
