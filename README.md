@@ -8,7 +8,7 @@ The deferral explanation retains all three AND conditions from the source. The p
 
 ## Hosting and updates
 
-GitHub Pages serves `public/`. GitHub Actions refreshes closing data at 22:37 UTC on weekdays and retries at 00:37 UTC Tuesday–Saturday. Each run saves its data snapshot and publishes the site. Refreshing a browser reads the latest published snapshot.
+GitHub Pages serves `public/`. GitHub Actions refreshes closing data hourly at minute 43 from 20:00–23:59 UTC on weekdays and 00:00–03:59 UTC Tuesday–Saturday. Each run saves its data snapshot and publishes the site. Refreshing a browser reads the latest published snapshot.
 
 The exchange calendar handles holidays, early closes and daylight-saving time. An additional 15-minute settlement buffer excludes an in-progress or just-closed bar. Missing recent sessions and regressing history are rejected. A provider failure preserves the last successful deployment, and the page independently checks its dated snapshot against the calendar before presenting it as fresh.
 

@@ -4,8 +4,8 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    - cron: '37 22 * * 1-5'
-    - cron: '37 0 * * 2-6'
+    - cron: '43 20-23 * * 1-5'
+    - cron: '43 0-3 * * 2-6'
 permissions:
   contents: write
   pages: write
