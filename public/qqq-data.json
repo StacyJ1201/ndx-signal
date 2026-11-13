@@ -4,15 +4,15 @@
   "symbol": "QQQ",
   "execution": "next_session_open",
   "source_label": "Invesco QQQ ETF (QQQ)",
-  "checked_at": "2026-11-13T01:28:41.538760+00:00",
+  "checked_at": "2026-11-13T07:20:00.018538+00:00",
   "expected_close": "2026-11-12",
   "fresh": true,
   "signal": {
     "date": "2026-11-12",
     "target": false,
-    "volatility": 0.36178163473875535,
-    "shock": 1.6860545490966512,
-    "drawdown": -0.09410785834694724,
+    "volatility": 0.3617816353223231,
+    "shock": 1.6860545483434322,
+    "drawdown": -0.09410788084364885,
     "drawdown_pass": true,
     "raw_verdict": false,
     "confirmation_count": 2,
@@ -25,7 +25,7 @@
   },
   "tqqq": {
     "date": "2026-11-12",
-    "close": 59.88,
+    "close": 59.880001068115234,
     "splits": [
       {
         "date": "2011-02-25",
@@ -2967,9 +2967,9 @@
     {
       "date": "2026-11-12",
       "target": false,
-      "volatility": 0.36178163473875535,
-      "shock": 1.6860545490966512,
-      "drawdown": -0.09410785834694724,
+      "volatility": 0.3617816353223231,
+      "shock": 1.6860545483434322,
+      "drawdown": -0.09410788084364885,
       "drawdown_pass": true,
       "raw_verdict": false,
       "confirmation_count": 2,
