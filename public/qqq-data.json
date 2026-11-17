@@ -4,28 +4,28 @@
   "symbol": "QQQ",
   "execution": "next_session_open",
   "source_label": "Invesco QQQ ETF (QQQ)",
-  "checked_at": "2026-11-14T07:02:41.050239+00:00",
-  "expected_close": "2026-11-13",
+  "checked_at": "2026-11-17T03:10:13.702033+00:00",
+  "expected_close": "2026-11-16",
   "fresh": true,
   "signal": {
-    "date": "2026-11-13",
+    "date": "2026-11-16",
     "target": false,
-    "volatility": 0.3539561784599649,
-    "shock": 1.6467188108873252,
-    "drawdown": -0.10500745243413911,
+    "volatility": 0.3603329336539503,
+    "shock": 1.6644522246003368,
+    "drawdown": -0.12888657637079837,
     "drawdown_pass": true,
     "raw_verdict": false,
     "confirmation_count": 2,
     "signal": "TLT",
     "changed_on": "2026-11-04",
-    "sessions_in_state": 8,
+    "sessions_in_state": 9,
     "pending": false,
     "execution_open": "2026-11-05T14:30:00+00:00",
-    "next_execution_open": "2026-11-16T14:30:00+00:00"
+    "next_execution_open": "2026-11-17T14:30:00+00:00"
   },
   "tqqq": {
-    "date": "2026-11-13",
-    "close": 57.68000030517578,
+    "date": "2026-11-16",
+    "close": 53.029998779296875,
     "splits": [
       {
         "date": "2011-02-25",
@@ -62,16 +62,6 @@
     ]
   },
   "calendar": [
-    {
-      "date": "2025-08-21",
-      "open": "2025-08-21T13:30:00+00:00",
-      "close": "2025-08-21T20:00:00+00:00"
-    },
-    {
-      "date": "2025-08-22",
-      "open": "2025-08-22T13:30:00+00:00",
-      "close": "2025-08-22T20:00:00+00:00"
-    },
     {
       "date": "2025-08-25",
       "open": "2025-08-25T13:30:00+00:00",
@@ -2891,19 +2881,14 @@
       "date": "2027-11-19",
       "open": "2027-11-19T14:30:00+00:00",
       "close": "2027-11-19T21:00:00+00:00"
+    },
+    {
+      "date": "2027-11-22",
+      "open": "2027-11-22T14:30:00+00:00",
+      "close": "2027-11-22T21:00:00+00:00"
     }
   ],
   "recent": [
-    {
-      "date": "2026-11-04",
-      "target": false,
-      "volatility": 0.2304657769947411,
-      "shock": 1.1378841003727607,
-      "drawdown": -0.08913193182631673,
-      "drawdown_pass": true,
-      "raw_verdict": false,
-      "confirmation_count": 2
-    },
     {
       "date": "2026-11-05",
       "target": false,
@@ -2972,13 +2957,23 @@
       "drawdown": -0.10500745243413911,
       "drawdown_pass": true,
       "raw_verdict": false,
+      "confirmation_count": 2
+    },
+    {
+      "date": "2026-11-16",
+      "target": false,
+      "volatility": 0.3603329336539503,
+      "shock": 1.6644522246003368,
+      "drawdown": -0.12888657637079837,
+      "drawdown_pass": true,
+      "raw_verdict": false,
       "confirmation_count": 2,
       "signal": "TLT",
       "changed_on": "2026-11-04",
-      "sessions_in_state": 8,
+      "sessions_in_state": 9,
       "pending": false,
       "execution_open": "2026-11-05T14:30:00+00:00",
-      "next_execution_open": "2026-11-16T14:30:00+00:00"
+      "next_execution_open": "2026-11-17T14:30:00+00:00"
     }
   ]
 }
