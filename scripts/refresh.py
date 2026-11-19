@@ -39,7 +39,7 @@ def settled_meta_row(result, now, completed, calendar):
     return completed, float(price)
 
 
-def read_yahoo(now, completed, symbol='QQQ', events=False):
+def read_yahoo(now, completed, symbol='^NDX', events=False):
     end = int((now + timedelta(days=1)).timestamp())
     url = f'https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol, safe="")}?period1=0&period2={end}&interval=1d&events=splits'
     request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 QQQ-Signal/3.0'})
@@ -47,6 +47,8 @@ def read_yahoo(now, completed, symbol='QQQ', events=False):
         try:
             with urllib.request.urlopen(request, timeout=45) as response:
                 result = json.load(response)['chart']['result'][0]
+            if result.get('meta', {}).get('symbol') != symbol:
+                raise ValueError('The provider returned the wrong price series.')
             break
         except Exception:
             if attempt == 2:
@@ -60,12 +62,12 @@ def read_yahoo(now, completed, symbol='QQQ', events=False):
             value = recovered[1]
         if day <= completed and value is not None:
             if not math.isfinite(value) or value <= 0:
-                raise ValueError(f'Invalid QQQ close on {day}')
+                raise ValueError(f'Invalid close on {day}')
             rows.append((day, float(value)))
     if recovered and rows and rows[-1][0] < completed:
         rows.append(recovered)
     if len(rows) < 252 or len({day for day, _ in rows}) != len(rows):
-        raise ValueError('QQQ history is incomplete or contains duplicate sessions')
+        raise ValueError('Closing history is incomplete or contains duplicate sessions')
     if events:
         splits = [dict(date=datetime.fromtimestamp(item['date'], timezone.utc).astimezone(NY).date().isoformat(), ratio=item['numerator'] / item['denominator']) for item in result.get('events', {}).get('splits', {}).values()]
         return rows, sorted(splits, key=lambda item: item['date'])
@@ -122,10 +124,10 @@ def publish(now=None):
     observed = rows[-1][0]
     expected_rows = calendar.sessions_in_range(rows[-300][0], observed)
     if [session.date().isoformat() for session in expected_rows] != [day for day, _ in rows[-300:]]:
-        raise ValueError('A recent QQQ session is missing. Retaining the last published signal.')
+        raise ValueError('A recent index session is missing. Retaining the last published signal.')
     tqqq, splits = read_yahoo(now, completed, 'TQQQ', events=True)
     if tqqq[-1][0] != observed:
-        raise ValueError('TQQQ and QQQ closes are not aligned')
+        raise ValueError('TQQQ and index closes are not aligned')
     signal, history = compute(rows)
     next_session = calendar.next_session(signal['changed_on'])
     signal['execution_open'] = calendar.session_open(next_session).isoformat()
@@ -137,8 +139,8 @@ def publish(now=None):
             raise ValueError('Provider history regressed. Retaining the newer published signal.')
     schedule = calendar.schedule.loc[(now - timedelta(days=450)).date().isoformat():
                                     (now + timedelta(days=370)).date().isoformat()]
-    payload = dict(schema=4, source='Yahoo Finance', symbol='QQQ', execution='next_session_open',
-                   source_label='Invesco QQQ ETF (QQQ)', checked_at=now.isoformat(),
+    payload = dict(schema=5, source='Yahoo Finance', symbol='QQQ', execution='next_session_open',
+                   source_label='Nasdaq-100 index', checked_at=now.isoformat(),
                    expected_close=completed, fresh=observed == completed,
                    signal=signal, tqqq=dict(date=observed, close=tqqq[-1][1], splits=splits),
                    calendar=[dict(date=day.date().isoformat(), open=row['open'].isoformat(), close=row['close'].isoformat())
@@ -149,7 +151,7 @@ def publish(now=None):
     os.replace(temporary, destination)
     shock_text = f'{signal["shock"]:.3f}' if signal['shock'] is not None else 'undefined'
     print(f'{observed}: {signal["signal"]}; vol {signal["volatility"]:.2%}; '
-          f'shock {shock_text}; QQQ drawdown {signal["drawdown"]:.2%}', flush=True)
+          f'shock {shock_text}; index drawdown {signal["drawdown"]:.2%}', flush=True)
     if observed != completed:
         print(f'::warning::Provider is behind the latest completed session, {completed}. The page will show a data warning.')
 

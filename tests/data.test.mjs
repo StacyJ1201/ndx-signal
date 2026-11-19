@@ -3,7 +3,7 @@ import test from 'node:test';
 import { freshness, validateData } from '../public/data.mjs';
 
 const fixture = {
-  schema: 4, symbol: 'QQQ', execution: 'next_session_open', checked_at: '2026-11-27T18:20:00Z',
+  schema: 5, symbol: 'QQQ', execution: 'next_session_open', checked_at: '2026-11-27T18:20:00Z',
   signal: { signal: 'TLT', target: false, pending: false, date: '2026-11-25',
     changed_on: '2026-11-25', execution_open: '2026-11-27T18:00:00Z',
     volatility: .30, shock: 1.3, drawdown: -.1, drawdown_pass: true },
