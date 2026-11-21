@@ -4,28 +4,28 @@
   "symbol": "QQQ",
   "execution": "next_session_open",
   "source_label": "Nasdaq-100 index",
-  "checked_at": "2026-11-20T07:47:01.292580+00:00",
-  "expected_close": "2026-11-19",
+  "checked_at": "2026-11-21T01:44:36.181404+00:00",
+  "expected_close": "2026-11-20",
   "fresh": true,
   "signal": {
-    "date": "2026-11-19",
+    "date": "2026-11-20",
     "target": false,
-    "volatility": 0.34635429370506576,
-    "shock": 1.6106632519995117,
-    "drawdown": -0.15076059948724363,
+    "volatility": 0.39172568585652195,
+    "shock": 1.7622016023598905,
+    "drawdown": -0.19841771987603118,
     "drawdown_pass": true,
     "raw_verdict": false,
     "confirmation_count": 2,
     "signal": "TLT",
     "changed_on": "2026-11-02",
-    "sessions_in_state": 14,
+    "sessions_in_state": 15,
     "pending": false,
     "execution_open": "2026-11-03T14:30:00+00:00",
-    "next_execution_open": "2026-11-20T14:30:00+00:00"
+    "next_execution_open": "2026-11-23T14:30:00+00:00"
   },
   "tqqq": {
-    "date": "2026-11-19",
-    "close": 49.0099983215332,
+    "date": "2026-11-20",
+    "close": 41.2,
     "splits": [
       {
         "date": "2011-02-25",
@@ -62,11 +62,6 @@
     ]
   },
   "calendar": [
-    {
-      "date": "2025-08-27",
-      "open": "2025-08-27T13:30:00+00:00",
-      "close": "2025-08-27T20:00:00+00:00"
-    },
     {
       "date": "2025-08-28",
       "open": "2025-08-28T13:30:00+00:00",
@@ -2886,19 +2881,14 @@
       "date": "2027-11-24",
       "open": "2027-11-24T14:30:00+00:00",
       "close": "2027-11-24T21:00:00+00:00"
+    },
+    {
+      "date": "2027-11-26",
+      "open": "2027-11-26T14:30:00+00:00",
+      "close": "2027-11-26T18:00:00+00:00"
     }
   ],
   "recent": [
-    {
-      "date": "2026-11-10",
-      "target": false,
-      "volatility": 0.3484465695173491,
-      "shock": 1.63305182624553,
-      "drawdown": -0.11156895736510741,
-      "drawdown_pass": true,
-      "raw_verdict": false,
-      "confirmation_count": 2
-    },
     {
       "date": "2026-11-11",
       "target": false,
@@ -2967,13 +2957,23 @@
       "drawdown": -0.15076059948724363,
       "drawdown_pass": true,
       "raw_verdict": false,
+      "confirmation_count": 2
+    },
+    {
+      "date": "2026-11-20",
+      "target": false,
+      "volatility": 0.39172568585652195,
+      "shock": 1.7622016023598905,
+      "drawdown": -0.19841771987603118,
+      "drawdown_pass": true,
+      "raw_verdict": false,
       "confirmation_count": 2,
       "signal": "TLT",
       "changed_on": "2026-11-02",
-      "sessions_in_state": 14,
+      "sessions_in_state": 15,
       "pending": false,
       "execution_open": "2026-11-03T14:30:00+00:00",
-      "next_execution_open": "2026-11-20T14:30:00+00:00"
+      "next_execution_open": "2026-11-23T14:30:00+00:00"
     }
   ]
 }
