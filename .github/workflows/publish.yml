@@ -7,19 +7,16 @@ on:
     - cron: '43 20-23 * * 1-5'
     - cron: '43 0-3 * * 2-6'
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 concurrency:
   group: signal-pages
   cancel-in-progress: false
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 12
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -46,6 +43,18 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Publish site
         id: deployment
         uses: actions/deploy-pages@v4
