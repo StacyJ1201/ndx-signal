@@ -4,7 +4,7 @@
   "symbol": "QQQ",
   "execution": "next_session_open",
   "source_label": "Nasdaq-100 index",
-  "checked_at": "2026-11-27T03:16:25.713373+00:00",
+  "checked_at": "2026-11-27T09:06:35.067982+00:00",
   "expected_close": "2026-11-25",
   "fresh": true,
   "signal": {
